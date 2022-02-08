@@ -8,14 +8,14 @@ interface Transaction {
   amount: number;
   type: 'deposit' | 'withdraw';
   category: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 function TransactionsTable() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   
   useEffect(() => {
-    api.get('http://localhost:3000/api/transactions')
+    api.get('transactions')
       .then(response => setTransactions(response.data.transactions));
   }, []);
   
