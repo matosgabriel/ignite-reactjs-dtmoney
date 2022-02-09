@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
-import { useTransactions } from '../../context/TransactionsContext';
+import { useTransactions } from '../../hooks/useTransactions';
 
 import closeImg from '../../assets/close.svg';
 
@@ -10,7 +10,7 @@ import { Container, TransactionTypeContainer, TransactionTypeButton } from './st
 
 interface NewTransactionModalProps {
   isOpen: boolean;
-  onRequestClose?(event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>): void;
+  onRequestClose(): void;
 }
 
 Modal.setAppElement('#root');
@@ -23,9 +23,16 @@ function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProp
 
   const { createTransaction } = useTransactions();
 
-  function handleCreateNewTransaction(event: FormEvent<HTMLFormElement>) {
+  async function handleCreateNewTransaction(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    createTransaction({ title, amount, type, category });
+    await createTransaction({ title, amount, type, category });
+
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposit');
+
+    onRequestClose();
   }
 
   return (

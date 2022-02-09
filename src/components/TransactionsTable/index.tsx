@@ -1,4 +1,4 @@
-import { useTransactions } from '../../context/TransactionsContext';
+import { useTransactions } from '../../hooks/useTransactions';
 import { Container } from './styles';
 
 function TransactionsTable() {

@@ -28,9 +28,9 @@ createServer({
 
     this.post('/transactions', (schema, request) => {
       const data = JSON.parse(request.requestBody);
-      const { id, title, type, category, createdAt } = data;
+      const { id, title, type, amount, category } = data;
       
-      return schema.create('transaction', { id, title, type, category, createdAt });
+      return schema.create('transaction', { id, title, type, category, amount, createdAt: new Date() });
     });
   }
 });
